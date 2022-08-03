@@ -13,8 +13,6 @@ from PIL import Image, ImageDraw, ImageFont
 from IPython.display import display, Javascript
 from IPython.display import Image as IPyImage
 
-import tensorflow as tf
-
 from object_detection.utils import label_map_util
 from object_detection.utils import config_util
 from object_detection.utils import visualization_utils as viz_utils

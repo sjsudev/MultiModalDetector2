@@ -10,8 +10,8 @@ import sys
 sys.path.append('./MyDetector/ultralyticsyolov5/')
 sys.path.append('./MyDetector/ultralyticsyolov5/utils/')
 sys.path.append('.')
-from utils.datasets import letterbox
-from utils.general import non_max_suppression, make_divisible, scale_coords
+from datautils.datasets import letterbox
+from datautils.general import non_max_suppression, make_divisible, scale_coords
 
 
 def autopad(k, p=None):  # kernel, padding
