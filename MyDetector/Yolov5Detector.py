@@ -78,8 +78,8 @@ class MyYolov5Detector(object):
         print(os.getcwd())
         weightpath=os.path.join(args.modelbasefolder, args.modelfilename)
 
-        model = attempt_load(weightpath, map_location=self.device)  # load FP32 model
-        self.model = Model('./MyDetector/yolov5models/yolov5s.yaml').to(self.device)
+        self.model = attempt_load(weightpath, map_location=self.device)  # load FP32 model
+        #self.model = Model('./MyDetector/yolov5models/yolov5s.yaml').to(self.device)
         self.model.load_state_dict(torch.load(weightpath))
         self.model = self.model.autoshape()  # for autoshaping of PIL/cv2/np inputs and NMS
 
