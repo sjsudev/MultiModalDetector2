@@ -30,7 +30,8 @@ class ultralyticsYolov5Detector(object):
         print(os.getcwd())
         weightpath=os.path.join(args.modelbasefolder, args.modelfilename)
         # Model
-        self.model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True, force_reload=True)#.fuse().eval()  # yolov5s.pt
+        self.model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True, force_reload=True).to(self.device)
+        #.fuse().eval()  # yolov5s.pt
         #self.model = self.model.autoshape()  # for autoshaping of PIL/cv2/np inputs and NMS
 
     def detect(self, im):
