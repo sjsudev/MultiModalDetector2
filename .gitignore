@@ -1,7 +1,6 @@
 *.mp4
 *.avi
 *.jpg
-*.pt
 *.pth
 *.ckpt
 __pycache__
