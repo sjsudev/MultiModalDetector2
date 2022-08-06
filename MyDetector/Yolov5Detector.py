@@ -50,7 +50,7 @@ class MyYolov5Detector(object):
         return cmin, rmin, cmax, rmax
 
     def detect(self, im):
-        self.testyolo5()
+        #self.testyolo5()
         img = torch.from_numpy(im).to(self.device)
         #img /= 255.0  # 0 - 255 to 0.0 - 1.0
         # if img.ndimension() == 3:
