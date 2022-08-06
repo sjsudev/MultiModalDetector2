@@ -27,9 +27,11 @@ class MyYolov5Detector(object):
         # Load model
         print(os.getcwd())
 
-        self.model = torch.hub.load('ultralytics/yolov5', 'custom', path='/content/best.pt')  # default
-        #self.model = Model('./MyDetector/yolov5models/yolov5s.yaml').to(self.device)
-        #self.model.load_state_dict(torch.load(weightpath))
+        weightpath = os.path.join(args.modelbasefolder, args.modelfilename) #weightpath
+
+        #self.model = torch.hub.load('ultralytics/yolov5', 'custom', path='/content/best.pt')  # default
+        self.model = Model('/content/MyDetector/yolov5models/yolov5s.yaml').to(self.device)
+        self.model.load_state_dict(torch.load(weightpath))
 
         #self.model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True).to(self.device).eval()
         #self.model = attempt_load(weightpath, map_location=self.device)  # load FP32 model
