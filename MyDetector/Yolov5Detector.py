@@ -26,13 +26,10 @@ class MyYolov5Detector(object):
         self.device = args.device
         # Load model
         print(os.getcwd())
-        weightpath=os.path.join(args.modelbasefolder, args.modelfilename)
 
         self.model = torch.hub.load('ultralytics/yolov5', 'custom', path='/content/best.pt')  # default
         #self.model = Model('./MyDetector/yolov5models/yolov5s.yaml').to(self.device)
         #self.model.load_state_dict(torch.load(weightpath))
-        self.model = self.model.autoshape()  # for autoshaping of PIL/cv2/np inputs and NMS
-
 
         #self.model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True).to(self.device).eval()
         #self.model = attempt_load(weightpath, map_location=self.device)  # load FP32 model
