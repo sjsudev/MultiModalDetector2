@@ -15,56 +15,6 @@ from yolov5models.experimental import attempt_load
 
 from yolov5models.yolo import Model
 
-# from ultralyticsyolov5 import *
-
-class ultralyticsYolov5Detector(object):
-    #args.showfig
-    #args.modelname
-    #args.modelbasefolder
-    #args.modelfilename
-
-    def __init__(self, args):
-        self.args = args
-        self.device = args.device
-        # Load model
-        print(os.getcwd())
-        weightpath=os.path.join(args.modelbasefolder, args.modelfilename)
-        # Model
-        self.model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True, force_reload=True).to(self.device)
-        #.fuse().eval()  # yolov5s.pt
-        #self.model = self.model.autoshape()  # for autoshaping of PIL/cv2/np inputs and NMS
-
-    def detect(self, im):
-        self.testyolo5()
-    
-    def testyolo5(self):
-        # Images
-        for f in ['zidane.jpg', 'bus.jpg']:  # download 2 images
-            torch.hub.download_url_to_file('https://github.com/ultralytics/yolov5/releases/download/v1.0/' + f, f)
-        img1 = Image.open('zidane.jpg')  # PIL image
-        img2 = cv2.imread('bus.jpg')[:, :, ::-1]  # OpenCV image (BGR to RGB)
-        img3 = np.zeros((640, 1280, 3))  # numpy array
-        imgs = [img1, img2, img3]  # batched list of images
-
-        # Inference
-        with torch.no_grad():
-            prediction = self.model(imgs, size=640)  # includes NMS
-
-        # Plot
-        for i, (img, pred) in enumerate(zip(imgs, prediction)):
-            str = 'Image %g/%g: %gx%g ' % (i + 1, len(imgs), *img.shape[:2])
-            img = Image.fromarray(img.astype(np.uint8)) if isinstance(img, np.ndarray) else img  # from np
-            if pred is not None:
-                for c in pred[:, -1].unique():
-                    n = (pred[:, -1] == c).sum()  # detections per class
-                    str += '%g %ss, ' % (n, model.names[int(c)])  # add to string
-                for *box, conf, cls in pred:  # xyxy, confidence, class
-                    label = model.names[int(cls)] if hasattr(model, 'names') else 'class_%g' % cls
-                    # str += '%s %.2f, ' % (label, conf)  # label
-                    ImageDraw.Draw(img).rectangle(box, width=3)  # plot
-            img.save('results%g.jpg' % i)  # save
-            print(str + 'Done.')
-
 class MyYolov5Detector(object):
     #args.showfig
     #args.modelname
@@ -78,9 +28,9 @@ class MyYolov5Detector(object):
         print(os.getcwd())
         weightpath=os.path.join(args.modelbasefolder, args.modelfilename)
 
-        self.model = attempt_load(weightpath, map_location=self.device)  # load FP32 model
+        self.model = torch.hub.load('ultralytics/yolov5', 'custom', path='../best.pt')  # default
         #self.model = Model('./MyDetector/yolov5models/yolov5s.yaml').to(self.device)
-        self.model.load_state_dict(torch.load(weightpath))
+        #self.model.load_state_dict(torch.load(weightpath))
         self.model = self.model.autoshape()  # for autoshaping of PIL/cv2/np inputs and NMS
 
 
